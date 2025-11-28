@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(swift package plugin:*)",
+      "Bash(git ls-remote:*)",
+      "Bash(swift build:*)",
+      "Bash(swift package clean:*)",
+      "Bash(swift package:*)",
+      "Bash(test:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

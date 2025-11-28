@@ -1,0 +1,4 @@
+sources:
+    - Sources/EGBaseSwift/
+output:
+    Sources/EGBaseSwift/Generated
