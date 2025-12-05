@@ -8,5 +8,5 @@
 class Property {
     var baseUrl: String = ""
     var path: String = ""
-    var method: MethodType = .get
+    var method: Method = .get
 }

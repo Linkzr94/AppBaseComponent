@@ -9,10 +9,6 @@ public protocol Engine: Sendable {
     
 }
 
-final class SystemEngine: Engine {
-    
-}
-
-final class AlamofireEngine: Engine {
+final class AFEngine: Engine {
     
 }

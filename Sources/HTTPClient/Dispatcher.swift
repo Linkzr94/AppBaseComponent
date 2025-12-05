@@ -6,6 +6,7 @@
 //
 
 import Dispatch
+import Foundation
 
 public typealias DispatcherIdentifier = String
 
@@ -20,43 +21,9 @@ public final class Dispatcher: Sendable {
         self.engine = engine
     }
     
-    func dispatch<Input, Output>(action: Action<Input, Output>, completion: ((Result<Output, Error>) -> Void)?) {
-        
-    }
-}
-
-public struct DispatcherBuilder {
-    private let identifier: DispatcherIdentifier
-    
-    init(identifier: DispatcherIdentifier) {
-        self.identifier = identifier
+    func dispatch<Input, Output>(action: Action<Input, Output>) async -> Result<Output, Error> {
+        .failure(NSError())
     }
     
-    private var baseUrl: String?
-    private var engine: Engine?
-    private var queue: DispatchQueue?
-}
-
-public extension DispatcherBuilder {
-    mutating func set(baseUrl: String) -> Self {
-        self.baseUrl = baseUrl
-        return self
-    }
-    
-    mutating func set(engine: Engine) -> Self {
-        self.engine = engine
-        return self
-    }
-    
-    mutating func set(queue: DispatchQueue) -> Self {
-        self.queue = queue
-        return self
-    }
-    
-    func build() {
-        let dispatcher = Dispatcher(identifier: identifier, baseUrl: baseUrl, engine: engine ?? SystemEngine())
-        Task.detached {
-            await HTTPClient.shared.register(dispatcher: dispatcher)
-        }
-    }
+    static let `default`: Dispatcher = .init(identifier: "com.dispatcher.alamofire", engine: AFEngine())
 }

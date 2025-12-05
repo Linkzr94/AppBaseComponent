@@ -12,7 +12,7 @@ public typealias HTTPHeader = [String: String]
 public enum PropertyType {
     case baseUrl(String)
     case path(String)
-    case method(MethodType)
+    case method(Method)
     case timeout(TimeInterval)
     case header(HTTPHeader)
     case retry(Int)
@@ -34,7 +34,7 @@ public enum OutputType {
     case tuple
 }
 
-public enum MethodType {
+public enum Method {
     case get
     case post
     case put
@@ -45,11 +45,17 @@ public enum MethodType {
 public actor HTTPClient {
     public static let shared: HTTPClient = .init()
 
-    private init() {}
+    private init() {
+        dispatchers.append(.default)
+    }
 
     private var dispatchers: [Dispatcher] = []
 
     public func register(dispatcher: Dispatcher) {
         dispatchers.append(dispatcher)
+    }
+    
+    func dispatcher(by identifier: String? = nil) -> Dispatcher {
+        dispatchers.first { $0.identifier == identifier } ?? .default
     }
 }
